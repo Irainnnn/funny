@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>浪漫表白</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Dancing Script', cursive;
+        background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+        text-align: center;
+        color: white;
+        overflow: hidden;
+    }
+    h1 {
+        margin-top: 50px;
+        font-size: 3em;
+    }
+    input, textarea {
+        width: 80%;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 1em;
+    }
+    button {
+        background: #ff6f91;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 1.2em;
+    }
+    #result {
+        margin-top: 30px;
+        font-size: 1.5em;
+        animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+    /* 心形动画 */
+    .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        transform: rotate(45deg);
+        animation: float 5s infinite;
+    }
+    .heart::before,
+    .heart::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        border-radius: 50%;
+    }
+    .heart::before {
+        top: -10px;
+        left: 0;
+    }
+    .heart::after {
+        left: 10px;
+        top: 0;
+    }
+    @keyframes float {
+        0% {transform: translateY(0) rotate(45deg);}
+        100% {transform: translateY(-800px) rotate(45deg);}
+    }
+</style>
+</head>
+<body>
+
+<h1>💌 浪漫表白 💌</h1>
+<input type="text" id="name" placeholder="收信人名字">
+<textarea id="message" placeholder="写下你的表白..."></textarea>
+<br>
+<button onclick="showConfession()">发送表白</button>
+
+<div id="result"></div>
+
+<script>
+function showConfession() {
+    const name = document.getElementById('name').value;
+    const message = document.getElementById('message').value;
+    if(name && message) {
+        document.getElementById('result').innerHTML = 
+            `亲爱的 ${name} ❤️<br>${message}`;
+        createHearts();
+    } else {
+        alert("请填写完整信息哦~");
+    }
+}
+
+function createHearts() {
+    for(let i=0; i<20; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = window.innerHeight + 'px';
+        heart.style.background = `hsl(${Math.random()*360},70%,60%)`;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+}
+</script>
+
+</body>
+</html>
