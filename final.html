@@ -133,13 +133,16 @@ function typeLine() {
                 charIndex++;
                 setTimeout(typeChar, speed);
             } else {
-                if (lineIndex === lines.length - 3 && !heartsStarted) {
-                    heartsStarted = true;
-                    startHearts();
-                }
-                lineIndex++;
-                charIndex = 0;
-                setTimeout(typeLine, 500);
+                // 每显示完一行，停顿 0.5 秒
+                setTimeout(() => {
+                    if (lineIndex === lines.length - 6 && !heartsStarted) {
+                        heartsStarted = true;
+                        startHearts();
+                    }
+                    lineIndex++;
+                    charIndex = 0;
+                    typeLine();
+                }, 1000);
             }
         }
         typeChar();
@@ -185,6 +188,7 @@ typeLine();
 </script>
 </body>
 </html>
+
 
 
 
