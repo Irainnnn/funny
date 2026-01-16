@@ -84,13 +84,13 @@ window.addEventListener('resize', setVh);
 const lines = [
     "2025年11月9日，我们第一次加上微信",
     "印象中聊得还不错，后面就约了见面",
-    "见面后的第一感觉就是，比想象中矮了一点，性格直爽，有啥说啥，毫不忌讳",
+    "见面后的第一感觉，比想象中矮了一点，性格直爽，有啥说啥，毫不忌讳",
     "但最让我印象深刻的你知道是什么吗",
     "不知道你还记不记得，当时我们讨论过一个路过卖麦芽糖的老人，你说你会关注他这种人",
     "总之，我们的第一次见面还是很愉快的，对吧",
     "但是，接下来的几天微信上聊崩了，你一气之下直接删了我的微信",
     "因为什么，因为我变着法的求你生孩子，让你很有压迫感",
-    "关于这一点我深刻检讨自己，孩子应该是两人爱情的结晶，而不是一项任务",
+    "关于这一点我深刻检讨自己，孩子是两人爱情的结晶，而不是一项任务",
     "于是，我厚着脸皮申请加回你的微信",
     "还好，你最终还是通过了我的申请，我十分开心",
     "后来，你在微信上给我发关于两性对立的问题，看我是怎么想的",
@@ -108,8 +108,6 @@ const lines = [
     "虽然你会提很多要求，但我觉得你心眼不坏",
     "虽然你有时候说话带刺，但我相信你是刀子嘴豆腐心",
     "虽然我们有些地方观点不一致，但我们彼此愿意为对方做出改变",
-    "想和你一起宅家",
-    "想和你一起做饭",
     "想和你一起散步",
     "想和你一起打球",
     "想和你一起逛街",
@@ -154,13 +152,27 @@ function startHearts() {
         let heart = document.createElement("div");
         heart.className = "heart";
 
-        let leftPos = Math.random() * 100;
+        // 全屏随机位置
+        let leftPos = Math.random() * 100; // 0~100vw
+        let topPos = Math.random() * 100;  // 0~100vh
         heart.style.left = leftPos + "vw";
-        heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+        heart.style.top = topPos + "vh";
+
+        // 大小随机
+        let size = 20 + Math.random() * 40; // 20~60px
+        heart.style.width = size + "px";
+        heart.style.height = size + "px";
+
+        // 漂浮速度随机
+        let duration = 4 + Math.random() * 6; // 4~10秒
+        heart.style.animationDuration = duration + "s";
+
+        // 漂浮延迟随机
+        heart.style.animationDelay = (Math.random() * 2) + "s";
 
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 10000);
-    }, 500); // 降低频率减少性能压力
+        setTimeout(() => heart.remove(), (duration + 2) * 1000);
+    }, 200); // 每0.2秒生成一个心形
 }
 
 // 点击页面播放音乐（解决浏览器自动播放限制）
@@ -173,5 +185,6 @@ typeLine();
 </script>
 </body>
 </html>
+
 
 
