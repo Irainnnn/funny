@@ -118,7 +118,7 @@ const lines = [
 
 let lineIndex = 0;
 let charIndex = 0;
-let speed = 300;
+let speed = 500;
 let heartsStarted = false;
 
 function typeLine() {
@@ -133,7 +133,7 @@ function typeLine() {
                 charIndex++;
                 setTimeout(typeChar, speed);
             } else {
-                // 每显示完一行，停顿 0.5 秒
+                // 每显示完一行，停顿 2 秒
                 setTimeout(() => {
                     if (lineIndex === lines.length - 6 && !heartsStarted) {
                         heartsStarted = true;
@@ -142,7 +142,7 @@ function typeLine() {
                     lineIndex++;
                     charIndex = 0;
                     typeLine();
-                }, 1000);
+                }, 2000);
             }
         }
         typeChar();
@@ -188,6 +188,7 @@ typeLine();
 </script>
 </body>
 </html>
+
 
 
 
