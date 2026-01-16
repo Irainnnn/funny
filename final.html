@@ -135,7 +135,7 @@ function typeLine() {
             } else {
                 // 每显示完一行，停顿 2 秒
                 setTimeout(() => {
-                    if (lineIndex === lines.length - 7 && !heartsStarted) {
+                    if (lineIndex === lines.length - 6 && !heartsStarted) {
                         heartsStarted = true;
                         startHearts();
                     }
@@ -188,6 +188,7 @@ typeLine();
 </script>
 </body>
 </html>
+
 
 
 
