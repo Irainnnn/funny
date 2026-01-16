@@ -4,22 +4,25 @@
 <meta charset="UTF-8">
 <title>表白网站 - 最后一页</title>
 <style>
-    body {
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: calc(var(--vh) * 100);
+        overflow: hidden; /* 禁止滚动，防止地址栏变化 */
+        touch-action: none; /* 禁止触摸滚动 */
         font-family: 'Microsoft YaHei', sans-serif;
-        margin:0;
-        height:100vh;
         background: radial-gradient(circle at center, #fff0f5 0%, #ffe6f0 100%), url('bg.jpg');
         background-size: cover;
         background-position: center;
-        color:#d6336c;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        text-align:center;
+        color: #d6336c;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         position: relative;
-        overflow: hidden;
     }
+    /* 文字区域背景柔和 */
     #container {
         position: relative;
         z-index: 2;
@@ -32,6 +35,7 @@
         border-radius: 12px;
         backdrop-filter: blur(2px);
     }
+    /* 文字样式：描边+阴影 */
     .line {
         font-size: 1.8em;
         margin: 10px 0;
@@ -40,6 +44,7 @@
         -webkit-text-stroke: 0.5px rgba(255,255,255,0.6);
         white-space: pre-line;
     }
+    /* 漂浮心形（透明背景PNG） */
     .heart {
         position: absolute;
         width: 50px;
@@ -51,6 +56,7 @@
         pointer-events: none;
         z-index: 1;
     }
+    /* 不规则漂浮路径（使用translate避免vh抖动） */
     @keyframes driftPath {
         0% { transform: translate(0,0) scale(0.8); opacity: 0; }
         10% { opacity: 1; }
@@ -64,10 +70,17 @@
 <body>
     <div id="container"></div>
 
-    <!-- 背景音乐 -->
-    <audio id="bgm" src="love.mp3" loop></audio>
+    <!-- 背景音乐：Kiss the Rain -->
+    <audio id="bgm" src="https://archive.org/download/Yiruma-MayBe/KissTheRain-Yiruma_3mfg2.mp3" loop></audio>
 
 <script>
+/* 修复移动端vh抖动 */
+function setVh() {
+    document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+setVh();
+window.addEventListener('resize', setVh);
+
 const lines = [
     "亲爱的，",
     "我可能不够完美，",
@@ -106,23 +119,19 @@ function typeLine() {
     }
 }
 
-// 生成漂浮心形
+// 生成漂浮心形（用translate避免vh抖动）
 function startHearts() {
     setInterval(() => {
         let heart = document.createElement("div");
         heart.className = "heart";
 
-        let topArea = Math.random() < 0.5;
         let leftPos = Math.random() * 100;
-        let topPos = topArea ? (Math.random() * 40) : (60 + Math.random() * 40);
-
         heart.style.left = leftPos + "vw";
-        heart.style.top = topPos + "vh";
         heart.style.animationDuration = (6 + Math.random() * 4) + "s";
 
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 10000);
-    }, 300);
+    }, 500); // 降低频率减少性能压力
 }
 
 // 点击页面播放音乐（解决浏览器自动播放限制）
